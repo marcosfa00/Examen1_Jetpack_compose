@@ -6,3 +6,9 @@ package com.example.myexam
  */
 
 data class Contador(val valor:Int)
+
+data class Nombre(var valor:String)
+
+data class Aleatorio(var valor:Int)
+
+data class Lista(var valor: List<Int>)

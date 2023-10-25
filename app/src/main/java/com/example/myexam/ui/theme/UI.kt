@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myexam.Nombre
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -113,45 +114,42 @@ fun ronda(miModel: Model){
     }
 }
 
-/*
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Textos(miModel: Model){
-
+fun Textos(miModel: Model) {
     Column(
-        modifier = Modifier.padding(top = 160.dp),
+        modifier = Modifier.padding(top = 360.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        Text(text = "Aquí se muestra el ejercicio Anterior, el boton que atucaliza la lista es el Tonal_list y el que  actualiza solo el Random es el outlined Random")
         Row {
             Text(
                 fontSize = 40.sp,
-                text =miModel.getRandom().toString()
-
+                text = miModel.getRandom().toString()
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 OutlinedTextField(
-                    value = miModel.getNombre(),
-                    onValueChange ={miModel.nombre.value = it} )
-
-                Spacer(modifier = Modifier.height(25.dp))
-                Text(text = "Result:  "+ miModel.getNombre())
-
-                Text(
-
-                    text =miModel.getLista().toString(),
-                    fontSize = 20.sp
-
-
+                    value = miModel.nombre.value.valor,
+                    onValueChange = { miModel.nombre.value = Nombre(it) }
                 )
 
+                Spacer(modifier = Modifier.height(25.dp))
+                Text(text = "Result: " + miModel.nombre.value.valor)
+
+
+                Text(
+                    text = "Lista: "+ miModel.getLista(),
+                    fontSize = 20.sp
+                )
             }
         }
     }
-
-
 }
-*/
+
+
+
 
 
 
@@ -161,11 +159,11 @@ fun Greeting(miModel: Model) {
 
         ronda(miModel = miModel)
         Spacer(modifier = Modifier.height(50.dp))
-       // buttons(miModel = miModel)
+
         Spacer(modifier = Modifier.height(50.dp))
 
 
-        //Textos(miModel = miModel)
+        Textos(miModel = miModel)
 
 
 

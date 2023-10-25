@@ -6,44 +6,44 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.myexam.Aleatorio
 import com.example.myexam.Contador
+import com.example.myexam.Lista
+import com.example.myexam.Nombre
 import java.util.Random
 
 //indicamos que esta clase extiende de VIEW Model
 class Model():ViewModel() {
     //Aquí estableceremos los datos
 
-
-    var nombre = mutableStateOf("")
-
-    //declar la variable random
-    /*
-    Si quiero que sea un numero pongo ej:0, si quiero que sea un String ""
+    /**
+     * Declaramos las nuevas variables llamando a la dataclass
      */
-    var aleatorio = mutableStateOf(0)
-
-    var lista = mutableStateListOf<Int>()
+    var nombre = mutableStateOf(Nombre(""))
+    var aleatorio = mutableStateOf(Aleatorio(0))
+    var lista = mutableStateOf(Lista(emptyList()))
     fun random(){
-        aleatorio.value = ((0..10).random())
-        Log.d("Estado",aleatorio.value.toString())
-    }
-    fun randomLista(){
-        aleatorio.value = ((0..8).random())
-        lista.add(aleatorio.value)
-        Log.d("Estado","Nuemros Lista: "+aleatorio.value.toString())
+        aleatorio.value = Aleatorio((0..10).random())
+        Log.d("Estado", aleatorio.value.valor.toString())
     }
 
-    fun getLista():List<Int>{
-        return lista.toList() //si no ponemos el toList, devuelve direcciones de memoria
+    fun randomLista() {
+        val nuevoAleatorio = (0..8).random()
+        val nuevaLista = Lista(lista.value.valor + nuevoAleatorio)
+        lista.value = nuevaLista
+        Log.d("Estado", "Números Lista: " + nuevoAleatorio.toString())
     }
 
-    //así indicamos que esta función retorne algo
-    fun getRandom():Int{
-        return aleatorio.value
+    fun getLista(): List<Int> {
+        return lista.value.valor
     }
 
-    fun getNombre():String{
-        return  nombre.value
+    fun getRandom(): Int {
+        return aleatorio.value.valor
+    }
+
+    fun getNombre(): String {
+        return nombre.value.valor
     }
 
 
@@ -68,3 +68,7 @@ class Model():ViewModel() {
     }
 
 }
+
+
+
+
