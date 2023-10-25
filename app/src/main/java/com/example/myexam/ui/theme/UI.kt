@@ -44,8 +44,10 @@ fun buttons(miModel :Model){
             modifier = Modifier.padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            FilledTonalButton(onClick = { miModel.randomLista()}) {
+            FilledTonalButton(onClick = { miModel.randomLista()},
+                ) {
                 Text(text = "Tonal_List")
+
             }
 
             Spacer(modifier = Modifier.width(16.dp)) // Espa
