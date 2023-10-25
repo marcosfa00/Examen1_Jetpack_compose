@@ -1,9 +1,12 @@
 package com.example.myexam.ui.theme
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.myexam.Contador
 import java.util.Random
 
 //indicamos que esta clase extiende de VIEW Model
@@ -41,6 +44,27 @@ class Model():ViewModel() {
 
     fun getNombre():String{
         return  nombre.value
+    }
+
+
+    /**
+     * EXAMEN
+     */
+    var contador by mutableStateOf(Contador(0))
+
+    /**
+    Accedemos a la instancia valor de contador y le sumamos uno
+     esto se almacena en contador
+     */
+    fun setContador(){
+        contador = Contador(contador.valor +1)
+    }
+
+    fun getContador():Int{
+        return contador.valor
+    }
+    fun reset(){
+        contador = Contador(0)
     }
 
 }

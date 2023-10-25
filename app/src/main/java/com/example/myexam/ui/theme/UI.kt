@@ -3,21 +3,26 @@ package com.example.myexam.ui.theme
 import android.util.Log
 import android.widget.Button
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,91 +33,141 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun buttons(miModel :Model){
-    Column {
-        Row {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             FilledTonalButton(onClick = { miModel.randomLista()}) {
                 Text(text = "Tonal_List")
             }
-            Spacer(modifier = Modifier.height(50.dp)) // Espacio de 50.dp
 
+            Spacer(modifier = Modifier.width(16.dp)) // Espa
             //Trabajamos con este boton
             OutlinedButton(onClick = {miModel.random()}) {
-                Modifier.border(3.dp, Color.Black)//Por ue coño no funciona
+
                 Text(text = "outlined_Random")
 
             }
+        }
 
-
+        Row {
             Spacer(modifier = Modifier.height(50.dp)) // Espacio de 50.dp
             ElevatedButton(onClick = { /*TODO*/ }) {
                 Text(text = "Elevated Button")
             }
-        }
-        Row {
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.width(16.dp)) // Espa
             TextButton(onClick = { /*TODO*/ }) {
                 Text(text = "Text Button")
+
             }
-            Spacer(modifier = Modifier.height(50.dp))
-            //TextField(value = , onValueChange = )
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Boton normal")
-            }
-
-
-
-
         }
+        Row {
+            FilledTonalButton(onClick = { miModel.reset() }) {
+                Text(text = "START")
+            }
+            Spacer(modifier = Modifier.width(16.dp)) // Espa
+            FilledTonalButton(onClick = { miModel.setContador() }) {
+                Text(
+                    text = "►",
+                    fontSize = 25.sp
+                )
 
-
+            }
+        }
 
     }
 
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Textos(miModel: Model){
-    Row {
-        Text(
-            fontSize = 40.sp,
-            text =miModel.getRandom().toString()
+fun ronda(miModel: Model){
+    Column(
+        modifier = Modifier.fillMaxSize(),
 
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "RONDA")
+
+        val contador = miModel.getContador()
+        val fontSize = 10.sp * ((contador / 10) + 1)
+        OutlinedTextField(
+            value = contador.toString(),
+            onValueChange = { /* Tu código de manejo de cambios aquí */ },
+            modifier = Modifier
+                .padding(16.dp)
+                .width(150.dp),
+            textStyle = LocalTextStyle.current.copy(fontSize = fontSize)
         )
 
-        Column {
-            OutlinedTextField(
-                value = miModel.getNombre(),
-                onValueChange ={miModel.nombre.value = it} )
+        Row {
+            buttons(miModel = miModel)
+        }
 
-            Spacer(modifier = Modifier.height(25.dp))
-            Text(text = "Result:  "+ miModel.getNombre())
+    }
+}
 
+/*
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Textos(miModel: Model){
+
+    Column(
+        modifier = Modifier.padding(top = 160.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Row {
             Text(
-
-                text =miModel.getLista().toString(),
-                fontSize = 20.sp
-
+                fontSize = 40.sp,
+                text =miModel.getRandom().toString()
 
             )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column {
+                OutlinedTextField(
+                    value = miModel.getNombre(),
+                    onValueChange ={miModel.nombre.value = it} )
 
+                Spacer(modifier = Modifier.height(25.dp))
+                Text(text = "Result:  "+ miModel.getNombre())
+
+                Text(
+
+                    text =miModel.getLista().toString(),
+                    fontSize = 20.sp
+
+
+                )
+
+            }
         }
     }
 
-}
 
+}
+*/
 
 
 
 
 @Composable
 fun Greeting(miModel: Model) {
-    Column {
-        buttons(miModel = miModel )
+
+        ronda(miModel = miModel)
         Spacer(modifier = Modifier.height(50.dp))
-        Textos(miModel = miModel)
-    }
+       // buttons(miModel = miModel)
+        Spacer(modifier = Modifier.height(50.dp))
+
+
+        //Textos(miModel = miModel)
+
+
 
 
 
@@ -120,10 +175,3 @@ fun Greeting(miModel: Model) {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview(miModel: Model) {
-    MyExamTheme {
-        Greeting(miModel = miModel)
-    }
-}
